@@ -1,4 +1,10 @@
-import type { Server } from "http";
+/**
+ * Node builtins are named only in type position here. Obsidian mobile has no
+ * Node, so the modules themselves are pulled in by `await import()` inside
+ * `start()`, which never runs on a platform that lacks them.
+ */
+type NodeHttp = typeof import("node:http");
+type NodeFs = typeof import("node:fs");
 
 /**
  * Loopback HTTP server that exposes vault files to the HTML viewer's iframe.
@@ -13,7 +19,7 @@ import type { Server } from "http";
  * should show, and it holds no reference to the workspace.
  */
 export class VaultServer {
-  private server: Server | null = null;
+  private server: ReturnType<NodeHttp["createServer"]> | null = null;
   private port = 0;
   private readonly token: string;
 
@@ -32,11 +38,12 @@ export class VaultServer {
   async start(): Promise<void> {
     if (this.server) return;
 
-    // Required lazily: Obsidian mobile has no Node builtins, and a top-level
-    // import would throw while the plugin is still loading.
-    const http = require("http") as typeof import("http");
+    // Imported lazily: Obsidian mobile has no Node builtins, and a static import
+    // would throw while the plugin is still loading. `fs` is resolved here too,
+    // then handed to each request, because serving a file cannot await.
+    const [http, fs] = await Promise.all([import("node:http"), import("node:fs")]);
 
-    const server = http.createServer((req, res) => this.handle(req, res));
+    const server = http.createServer((req, res) => this.handle(fs, req, res));
     await new Promise<void>((resolve, reject) => {
       server.once("error", reject);
       server.listen(0, "127.0.0.1", () => {
@@ -72,8 +79,9 @@ export class VaultServer {
   }
 
   private handle(
-    req: import("http").IncomingMessage,
-    res: import("http").ServerResponse
+    fs: NodeFs,
+    req: import("node:http").IncomingMessage,
+    res: import("node:http").ServerResponse
   ): void {
     const filePath = resolveServedPath(this.vaultRoot, this.token, req.url ?? "");
     if (filePath === null) {
@@ -82,7 +90,6 @@ export class VaultServer {
       return;
     }
 
-    const fs = require("fs") as typeof import("fs");
     fs.stat(filePath, (err, stat) => {
       if (err || !stat.isFile()) {
         res.writeHead(404, { "Content-Type": "text/plain" });

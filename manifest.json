@@ -2,7 +2,7 @@
   "id": "html-companion",
   "name": "HTML Companion",
   "version": "1.0.0",
-  "minAppVersion": "1.0.0",
+  "minAppVersion": "1.1.0",
   "description": "Open HTML files in a tab instead of an external browser, with scripts, styles, and neighboring files intact.",
   "author": "Zero Liu",
   "authorUrl": "https://github.com/zeroliu",
