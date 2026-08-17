@@ -1,7 +1,7 @@
 {
-  "name": "obsidian-html-viewer",
+  "name": "obsidian-html-companion",
   "version": "1.0.0",
-  "description": "Open vault HTML files in an Obsidian tab.",
+  "description": "Open vault HTML files in an Obsidian tab, with scripts, styles, and neighboring files intact.",
   "main": "main.js",
   "scripts": {
     "build": "tsc --noEmit --skipLibCheck && node esbuild.config.mjs production",

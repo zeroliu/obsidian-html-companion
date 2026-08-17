@@ -1,9 +1,9 @@
-.html-viewer-content {
+.html-companion-content {
   padding: 0;
   overflow: hidden;
 }
 
-.html-viewer-frame {
+.html-companion-frame {
   display: block;
   width: 100%;
   height: 100%;
@@ -11,12 +11,12 @@
   background-color: var(--background-primary);
 }
 
-.html-viewer-error {
+.html-companion-error {
   padding: var(--size-4-6);
   color: var(--text-muted);
 }
 
-.html-viewer-error-detail {
+.html-companion-error-detail {
   font-family: var(--font-monospace);
   font-size: var(--font-ui-smaller);
   color: var(--text-faint);

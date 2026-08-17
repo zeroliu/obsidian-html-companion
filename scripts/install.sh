@@ -19,8 +19,8 @@ if [ ! -f "$ROOT/main.js" ]; then
   exit 1
 fi
 
-DEST="$VAULT/.obsidian/plugins/html-viewer"
+DEST="$VAULT/.obsidian/plugins/html-companion"
 mkdir -p "$DEST"
 cp "$ROOT/main.js" "$ROOT/manifest.json" "$ROOT/styles.css" "$DEST/"
 echo "Installed to $DEST"
-echo "Enable 'HTML Viewer' in Settings -> Community plugins (restart Obsidian first)."
+echo "Enable 'HTML Companion' in Settings -> Community plugins (restart Obsidian first)."

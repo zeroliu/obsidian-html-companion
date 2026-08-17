@@ -1,6 +1,6 @@
 import { FileView, TFile, WorkspaceLeaf } from "obsidian";
 
-export const VIEW_TYPE_HTML = "html-viewer-view";
+export const VIEW_TYPE_HTML = "html-companion-view";
 
 /** Resolves the URL a tab should load for a vault file. */
 export interface HtmlUrlResolver {
@@ -45,7 +45,7 @@ export class HtmlFileView extends FileView {
 
   async onLoadFile(file: TFile): Promise<void> {
     this.contentEl.empty();
-    this.contentEl.addClass("html-viewer-content");
+    this.contentEl.addClass("html-companion-content");
 
     let url: string;
     try {
@@ -58,7 +58,7 @@ export class HtmlFileView extends FileView {
     // The file may have been swapped out while the resolver was awaiting.
     if (this.file !== file) return;
 
-    const frame = this.contentEl.createEl("iframe", { cls: "html-viewer-frame" });
+    const frame = this.contentEl.createEl("iframe", { cls: "html-companion-frame" });
     frame.setAttribute("referrerpolicy", "no-referrer");
     frame.setAttribute("src", url);
   }
@@ -69,8 +69,8 @@ export class HtmlFileView extends FileView {
 
   private renderError(error: unknown): void {
     const message = error instanceof Error ? error.message : String(error);
-    const wrapper = this.contentEl.createDiv({ cls: "html-viewer-error" });
+    const wrapper = this.contentEl.createDiv({ cls: "html-companion-error" });
     wrapper.createEl("p", { text: "Could not display this HTML file." });
-    wrapper.createEl("p", { cls: "html-viewer-error-detail", text: message });
+    wrapper.createEl("p", { cls: "html-companion-error-detail", text: message });
   }
 }

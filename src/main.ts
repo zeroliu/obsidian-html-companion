@@ -21,7 +21,7 @@ export default class HtmlViewerPlugin extends Plugin implements HtmlUrlResolver 
       // Obsidian throws when an extension is already registered. Another plugin
       // owning .html is a coexistence problem, not a reason to fail loading.
       new Notice(
-        "HTML Viewer: another plugin already handles .html files, so HTML files will keep opening in your browser."
+        "HTML Companion: another plugin already handles .html files, so HTML files will keep opening in your browser."
       );
     }
   }
@@ -57,7 +57,7 @@ export default class HtmlViewerPlugin extends Plugin implements HtmlUrlResolver 
       await server.start();
     } catch {
       new Notice(
-        "HTML Viewer: could not start the local server, so files that use separate CSS or JS may render incompletely."
+        "HTML Companion: could not start the local server, so files that use separate CSS or JS may render incompletely."
       );
       return null;
     }
