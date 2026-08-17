@@ -33,6 +33,7 @@ Prefer to do it by hand? Copy `main.js`, `manifest.json`, and `styles.css` into 
 - `.html` and `.htm` files show up in the file explorer with an `HTML` badge. No need to turn on "Detect all file extensions".
 - Clicking one opens it in a tab. Splits, tab history, and renames work like any other file.
 - Pages render fully: scripts, styles, images, fonts, and data fetching all work, including files kept in nearby folders.
+- The tab updates itself when the file changes, so a page your assistant rewrites refreshes while you watch.
 - Two buttons in the tab header: **Reload**, and **Open in default app** if you'd rather use your browser after all.
 - On phones and tablets, single-file pages work; ones that pull in separate CSS or JS need the desktop app.
 
