@@ -1,4 +1,4 @@
-# HTML Viewer
+# HTML Companion
 
 <img width="2134" height="1302" alt="Screenshot 2026-08-17 at 12 18 13 PM" src="https://github.com/user-attachments/assets/88750d5a-88cd-4f46-8ec7-1b37b4f52740" />
 
@@ -13,20 +13,20 @@ Handy if your vault collects HTML, reports, dashboards, charts, exported notes, 
 Not in the community plugin list yet, so install it manually. In a terminal:
 
 ```bash
-git clone https://github.com/zeroliu/obsidian-html-viewer.git
+git clone https://github.com/zeroliu/obsidian-html-companion.git
 ```
 
 ```bash
-cd obsidian-html-viewer && npm install && npm run build
+cd obsidian-html-companion && npm install && npm run build
 ```
 
 ```bash
 ./scripts/install.sh /path/to/your/vault
 ```
 
-Then restart Obsidian and turn on **HTML Viewer** in Settings → Community plugins.
+Then restart Obsidian and turn on **HTML Companion** in Settings → Community plugins.
 
-Prefer to do it by hand? Copy `main.js`, `manifest.json`, and `styles.css` into `<vault>/.obsidian/plugins/html-viewer/`.
+Prefer to do it by hand? Copy `main.js`, `manifest.json`, and `styles.css` into `<vault>/.obsidian/plugins/html-companion/`.
 
 ## What you get
 
