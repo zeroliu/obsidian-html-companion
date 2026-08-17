@@ -1,5 +1,7 @@
 # HTML Viewer
 
+<img width="2134" height="1302" alt="Screenshot 2026-08-17 at 12 18 13 PM" src="https://github.com/user-attachments/assets/88750d5a-88cd-4f46-8ec7-1b37b4f52740" />
+
 **Open `.html` files inside Obsidian, in a normal tab.**
 
 Obsidian hides HTML files by default, and when you use "Show all file types" settings, clicking HTML files from the navbar kicks you out to external browsers instead of showing them in the built-in web view. This plugin makes HTML files appear in the file explorer and open right where you're working.
