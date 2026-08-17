@@ -1,0 +1,10 @@
+{
+  "id": "html-viewer",
+  "name": "HTML Viewer",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "Show .html files in the file explorer and open them in an Obsidian tab instead of an external browser.",
+  "author": "Zero Liu",
+  "authorUrl": "https://github.com/zeroliu",
+  "isDesktopOnly": false
+}
