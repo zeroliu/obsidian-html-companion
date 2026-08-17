@@ -1,6 +1,14 @@
-import { FileView, TFile, WorkspaceLeaf } from "obsidian";
+import { debounce, FileView, TFile, WorkspaceLeaf } from "obsidian";
 
 export const VIEW_TYPE_HTML = "html-companion-view";
+
+/**
+ * A single save often lands as several `modify` events — an editor writing in
+ * chunks, or an agent streaming a file it is still generating. Reloading on the
+ * trailing edge shows the finished document once instead of flashing through
+ * half-written drafts.
+ */
+const RELOAD_DEBOUNCE_MS = 250;
 
 /** Resolves the URL a tab should load for a vault file. */
 export interface HtmlUrlResolver {
@@ -35,13 +43,35 @@ export class HtmlFileView extends FileView {
   }
 
   async onOpen(): Promise<void> {
-    this.addAction("refresh-cw", "Reload", () => {
-      if (this.file) void this.onLoadFile(this.file);
-    });
+    this.addAction("refresh-cw", "Reload", () => this.reload());
     this.addAction("external-link", "Open in default app", () => {
       if (this.file) this.app.openWithDefaultApp(this.file.path);
     });
+
+    // Obsidian reports writes from outside the app too, which is the case that
+    // matters here: the file is usually rewritten by the tool that generated it
+    // while the tab sits open beside it.
+    this.registerEvent(
+      this.app.vault.on("modify", (file) => {
+        if (file === this.file) this.scheduleReload();
+      })
+    );
   }
+
+  /**
+   * Rebuild the frame from the file's current bytes. The server sends
+   * `Cache-Control: no-store`, so the document and its assets are refetched
+   * rather than replayed from cache.
+   */
+  private reload(): void {
+    if (this.file) void this.onLoadFile(this.file);
+  }
+
+  private readonly scheduleReload = debounce(
+    () => this.reload(),
+    RELOAD_DEBOUNCE_MS,
+    true
+  );
 
   async onLoadFile(file: TFile): Promise<void> {
     this.contentEl.empty();
